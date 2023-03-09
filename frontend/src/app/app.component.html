@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>Movie Search</h1>
+  <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" id="title" name="title" [(ngModel)]="searchTitle" required>
+    </div>
+    <div class="form-group">
+      <label for="sort">Sort by:</label>
+      <select class="form-control" id="sort" name="sort" [(ngModel)]="sortOrder">
+        <option selected="selected" value="title_asc">Title (A-Z)</option>
+        <option value="title_desc">Title (Z-A)</option>
+        <option value="year_asc">Year (oldest first)</option>
+        <option value="year_desc">Year (newest first)</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+  <div *ngIf="isLoading">
+    <p>Loading...</p>
+  </div>
+  <div *ngIf="movies.length > 0">
+    <ul class="list-unstyled">
+      <li *ngFor="let movie of movies">
+        <div class="row">
+          <div class="col-md-3">
+            <img src="{{ movie.poster }}" alt="{{ movie.title }}" width="200">
+          </div>
+          <div class="col-md-9">
+            <h3>{{ movie.title }}</h3>
+            <p>Released: {{ movie.year }}</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="errorMessage">
+    <p>{{ errorMessage }}</p>
+  </div>
+</div>
+
+     
